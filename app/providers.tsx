@@ -1,0 +1,10 @@
+import NextTopLoader from 'nextjs-toploader';
+
+export default function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <NextTopLoader color="#ffbe59" />
+      {children}
+    </>
+  );
+}
