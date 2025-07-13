@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
@@ -12,6 +13,7 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
+  const t = useTranslations();
   const form = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
   });
@@ -24,7 +26,7 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
       <h2 className="text-3xl font-extrabold text-gray-900 mb-8 tracking-tight">
-        Đăng nhập
+        {t('login-title')}
       </h2>
       <form
         onSubmit={form.handleSubmit(onSubmitLoginForm)}

@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Providers from '@/app/providers';
 import { Be_Vietnam_Pro } from 'next/font/google';
+import { cookies } from 'next/headers';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['vietnamese'],
@@ -15,15 +18,20 @@ export const metadata: Metadata = {
     'A Next.js application with authentication and user profile features',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get('x-locale')?.value || 'vi';
+  const messages = await getMessages();
   return (
-    <html lang="vi">
+    <html lang={locale}>
       <body className={`${beVietnamPro.variable}`}>
-        <Providers>{children}</Providers>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -1,10 +1,13 @@
+import NotificationProvider from '@/libs/contexts/NotificationContext';
 import NextTopLoader from 'nextjs-toploader';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <NextTopLoader color="#ffbe59" />
-      {children}
+      <NotificationProvider>
+        <NextTopLoader color="red" />
+        {children}
+      </NotificationProvider>
     </>
   );
 }
